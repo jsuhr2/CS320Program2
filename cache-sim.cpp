@@ -1,12 +1,11 @@
-#include <cstdlib>
-#include <vector>
-#include <string>
 #include <iostream>
 #include <fstream>
-#include <algorithm>
+#include <string>
+#include <vector>
 #include <deque>
 #include <cmath>
-#include <utility>
+#include <utility> //pair
+#include <algorithm> //find
 
 using namespace std;
 
@@ -109,6 +108,7 @@ int find_hot_cold(int hc[]) {
 			index = index - size;
 		}
 	}
+	cout << "should never get out here" << endl;
 	return index;
 }
 
@@ -262,21 +262,23 @@ int set_no_alloc(string type, unsigned int address, pair<short int, int> table[]
 }
 
 int main(int argc, char *argv[]) {
-	if(argc != 3){
-		cout << "Incorrect command line arguments" << endl;
+	string infilename;
+	string outfilename;
+
+	if (argc == 3) {
+		infilename = argv[1];
+		outfilename = argv[2];
+	} 
+	else {
+		cout << "error reading command line" << endl;
 		return 0;
 	}
 
-//clear output file
-	ofstream clear;
-	clear.open(argv[2], ofstream::out | ofstream::trunc);
-	clear.close();
-
-//open files
-	ifstream input(argv[1], ios::in);
-
+	ifstream input;
 	ofstream output;
-	output.open(argv[2], ios_base::app);
+
+	input.open(infilename);
+	output.open(outfilename, ios::out);
 
 	int total = -1;
 
@@ -290,7 +292,10 @@ int main(int argc, char *argv[]) {
 	fill_n(sixteenKB, 512, make_pair(0, 0));
 	pair<short int, int> thirtytwoKB[1024] = {};
 	fill_n(thirtytwoKB, 1024, make_pair(0, 0));
-	int correct1, correct4, correct16, correct32 = 0;
+	int correct1 = 0;
+	int correct4 = 0;
+	int correct16 = 0;
+	int correct32 = 0;
 
 	//set-associative
 	//all 16kb == 512 lines
@@ -315,7 +320,10 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen[32] = {};
 	fill_n(sixteen, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctSA2, correctSA4, correctSA8, correctSA16 = 0;
+	int correctSA2 = 0;
+	int correctSA4 = 0;
+	int correctSA8 = 0;
+	int correctSA16 = 0;
 
 	//fully associative lru
 	//pair in deque <tag, index>
@@ -357,7 +365,10 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen2[32] = {};
 	fill_n(sixteen2, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctWM2, correctWM4, correctWM8, correctWM16 = 0;
+	int correctWM2 = 0;
+	int correctWM4 = 0;
+	int correctWM8 = 0;
+	int correctWM16 = 0;
 
 	//set-associative prefetching
 	pair<short int, int> twoset3[512] = {};
@@ -380,7 +391,10 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen3[32] = {};
 	fill_n(sixteen3, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctP2, correctP4, correctP8, correctP16 = 0;
+	int correctP2 = 0;
+	int correctP4 = 0;
+	int correctP8 = 0;
+	int correctP16 = 0;
 
 	//set-associative prefetching on miss
 	pair<short int, int> twoset4[512] = {};
@@ -403,7 +417,10 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen4[32] = {};
 	fill_n(sixteen4, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctPM2, correctPM4, correctPM8, correctPM16 = 0;
+	int correctPM2 = 0;
+	int correctPM4 = 0;
+	int correctPM8 = 0;
+	int correctPM16 = 0;
 
 	unsigned int address = 0;
 	string type; //type is L = load or S = store
