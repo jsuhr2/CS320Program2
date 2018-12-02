@@ -6,5 +6,8 @@ all: $(C)
 $(C): $(C).cpp
 	g++ $(CFLAGS) $(C).cpp -o $(C)
 
+run:
+	./$(C) trace1.txt output.txt
+
 clean:
 	rm $(C)

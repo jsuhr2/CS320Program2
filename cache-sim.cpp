@@ -290,7 +290,7 @@ int main(int argc, char *argv[]) {
 	fill_n(sixteenKB, 512, make_pair(0, 0));
 	pair<short int, int> thirtytwoKB[1024] = {};
 	fill_n(thirtytwoKB, 1024, make_pair(0, 0));
-	int correct1 = correct4 = correct 16 = correct32 = 0;
+	int correct1, correct4, correct16, correct32 = 0;
 
 	//set-associative
 	//all 16kb == 512 lines
@@ -315,7 +315,7 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen[32] = {};
 	fill_n(sixteen, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctSA2 = correctSA4 = correctSA8 = correctSA16 = 0;
+	int correctSA2, correctSA4, correctSA8, correctSA16 = 0;
 
 	//fully associative lru
 	//pair in deque <tag, index>
@@ -357,7 +357,7 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen2[32] = {};
 	fill_n(sixteen2, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctWM2 = correctWM4 = correctWM8 = correctWM16 = 0;
+	int correctWM2, correctWM4, correctWM8, correctWM16 = 0;
 
 	//set-associative prefetching
 	pair<short int, int> twoset3[512] = {};
@@ -380,7 +380,7 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen3[32] = {};
 	fill_n(sixteen3, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctP2 = correctP2 = correctP8 = correct P16 = 0;
+	int correctP2, correctP4, correctP8, correctP16 = 0;
 
 	//set-associative prefetching on miss
 	pair<short int, int> twoset4[512] = {};
@@ -403,7 +403,7 @@ int main(int argc, char *argv[]) {
 	deque<pair<int,int>> sixteen4[32] = {};
 	fill_n(sixteen4, 32, deque<pair<int,int>>(16, make_pair(0,0)));
 
-	int correctPM2 = correctPM4 = orrectPM8 = correctPM16 = 0;
+	int correctPM2, correctPM4, correctPM8, correctPM16 = 0;
 
 	unsigned int address = 0;
 	string type; //type is L = load or S = store
